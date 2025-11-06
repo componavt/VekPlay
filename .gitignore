@@ -137,3 +137,29 @@ dist
 # Vite logs files
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
+
+
+# --- Added for React Native / Expo ---
+.expo/
+.expo-shared/
+web-build/
+*.jks
+*.keystore
+*.apk
+*.aab
+
+# Metro bundler cache
+.expo/web-build/
+.expo/web-cache/
+.expo/web-debug/
+.expo/cache/
+
+# Android Studio
+/android/.gradle/
+android/app/build/
+android/.idea/
+android/local.properties
+
+# iOS (если будешь билдить под iPhone позже)
+ios/build/
+ios/Pods/
