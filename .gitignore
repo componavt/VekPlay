@@ -6,6 +6,9 @@ yarn-debug.log*
 yarn-error.log*
 lerna-debug.log*
 
+# Database dumps
+*.sql
+
 # Diagnostic reports (https://nodejs.org/api/report.html)
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
 
@@ -160,6 +163,6 @@ android/app/build/
 android/.idea/
 android/local.properties
 
-# iOS (если будешь билдить под iPhone позже)
+# iOS
 ios/build/
 ios/Pods/
