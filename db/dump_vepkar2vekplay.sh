@@ -14,7 +14,8 @@ echo
 
 # Generate filename with current date
 current_date=$(date +"%Y%m%d")
-dump_file="vekplay-$current_date.sql"
+# dump_file="vekplay-$current_date.sql"
+dump_file="vekplay-empty.sql"
 compressed_file="$dump_file.zst"
 
 # Execute mysqldump with --no-data flag to dump only the structure of the 'lemmas' table
