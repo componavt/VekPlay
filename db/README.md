@@ -5,6 +5,7 @@ This guide helps to create, edit and load empty VekPlay database into MySQL.
 ## MySQL
 
 ```sql
+mysql$ DROP DATABASE IF EXISTS vekplay;
 mysql$ CREATE DATABASE vekplay;
 mysql$ USE vekplay
 mysql$ SOURCE /data/all/projects/git/VekPlay/db/schemas/vekplay_empty.sql
