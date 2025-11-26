@@ -1,0 +1,58 @@
+[
+  {
+    "id": 1,
+    "name_en": "Veps",
+    "name_ru": "вепсский",
+    "short_ru": null,
+    "code": "vep",
+    "sequence_number": 1
+  },
+  {
+    "id": 2,
+    "name_en": "Russian",
+    "name_ru": "русский",
+    "short_ru": null,
+    "code": "ru",
+    "sequence_number": 5
+  },
+  {
+    "id": 3,
+    "name_en": "English",
+    "name_ru": "английский",
+    "short_ru": null,
+    "code": "en",
+    "sequence_number": 6
+  },
+  {
+    "id": 4,
+    "name_en": "Karelian Proper",
+    "name_ru": "карельский: собственно карельское наречие",
+    "short_ru": "собственно карельское наречие",
+    "code": "krl",
+    "sequence_number": 4
+  },
+  {
+    "id": 5,
+    "name_en": "Livvi",
+    "name_ru": "карельский: ливвиковское наречие",
+    "short_ru": "ливвиковское наречие",
+    "code": "olo",
+    "sequence_number": 2
+  },
+  {
+    "id": 6,
+    "name_en": "Ludian",
+    "name_ru": "карельский: людиковское наречие",
+    "short_ru": "людиковское наречие",
+    "code": "lud",
+    "sequence_number": 3
+  },
+  {
+    "id": 7,
+    "name_en": "Finish",
+    "name_ru": "финский",
+    "short_ru": null,
+    "code": "fi",
+    "sequence_number": 7
+  }
+]

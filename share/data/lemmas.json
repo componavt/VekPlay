@@ -1,0 +1,58 @@
+[
+  {
+    "id": 10603,
+    "lemma": "olla",
+    "lang_id": 5,
+    "example_count": 15226,
+    "audio_count": 1,
+    "media_count": 0
+  },
+  {
+    "id": 4142,
+    "lemma": "da",
+    "lang_id": 5,
+    "example_count": 15011,
+    "audio_count": 1,
+    "media_count": 0
+  },
+  {
+    "id": 4144,
+    "lemma": "da",
+    "lang_id": 5,
+    "example_count": 15011,
+    "audio_count": 1,
+    "media_count": 0
+  },
+  {
+    "id": 15241,
+    "lemma": "se",
+    "lang_id": 5,
+    "example_count": 14725,
+    "audio_count": 1,
+    "media_count": 0
+  },
+  {
+    "id": 43361,
+    "lemma": "ei",
+    "lang_id": 5,
+    "example_count": 14206,
+    "audio_count": 1,
+    "media_count": 0
+  },
+  {
+    "id": 7884,
+    "lemma": "kai",
+    "lang_id": 5,
+    "example_count": 13343,
+    "audio_count": 1,
+    "media_count": 0
+  },
+  {
+    "id": 11542,
+    "lemma": "pidiä",
+    "lang_id": 5,
+    "example_count": 13131,
+    "audio_count": 1,
+    "media_count": 0
+  }
+]
