@@ -10,8 +10,7 @@ mysql$ CREATE DATABASE vekplay;
 mysql$ USE vekplay
 mysql$ SOURCE /data/all/projects/git/VekPlay/db/vekplay_empty.sql
 mysql$ CREATE USER 'vekplay_user'@'%' IDENTIFIED BY 'some_password';
-mysql$ GRANT SELECT ON vekplay.* TO vekplay_user@'%';
-mysql$ GRANT ALL ON vekplay.* TO vekplay_user@'%';
+mysql$ GRANT SELECT, INSERT ON vekplay.* TO 'vekplay_user'@'%';
 mysql$ FLUSH PRIVILEGES;
 ```
 
