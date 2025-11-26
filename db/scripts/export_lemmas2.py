@@ -1,6 +1,7 @@
 import mysql.connector
 from mysql.connector import Error
 import pandas as pd
+from sqlalchemy import create_engine
 from db.scripts.config import VEPKAR_DB, VEKPLAY_DB
 from db.scripts.utils.helpers import execute_query, save_to_csv
 
@@ -25,15 +26,21 @@ def export_top_lemmas():
         LEFT JOIN media med ON l.id = med.model_id AND med.model_type = 'lemma'
         JOIN meanings m ON l.id = m.lemma_id
         JOIN meaning_text mt ON m.id = mt.meaning_id
-        JOIN sentence_translations st ON mt.text_id = st.text_id
+        JOIN sentences s ON mt.text_id = s.text_id
+        JOIN sentence_translations st ON s.id = st.sentence_id
         GROUP BY l.id, l.lemma
         HAVING COUNT(st.id) > 0 OR COUNT(DISTINCT al.audio_id) > 0 OR COUNT(DISTINCT med.id) > 0
         ORDER BY example_count DESC, audio_count DESC, media_count DESC
-        LIMIT 1000;
+        LIMIT 112;
         """
         
+        # Create SQLAlchemy engine for Vepkar database
+        vepkar_engine = create_engine(
+            f"mysql+pymysql://{VEPKAR_DB['user']}:{VEPKAR_DB['password']}@{VEPKAR_DB['host']}/{VEPKAR_DB['database']}"
+        )
+        
         # Execute query
-        top_lemmas = pd.read_sql(query, vepkar_conn)
+        top_lemmas = pd.read_sql(query, vepkar_engine)
         vepkar_conn.close()
         vepkar_conn = None
         

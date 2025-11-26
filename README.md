@@ -15,4 +15,4 @@ The program can be run as follows:
     source venv/bin/activate
     pip install -U pip
     pip install -r requirements.txt
-    python db/scripts/export_lemmas2.py
+    python -m db.scripts.export_lemmas2

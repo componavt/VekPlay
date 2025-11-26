@@ -2,20 +2,35 @@ import pandas as pd
 import mysql.connector
 from mysql.connector import Error
 import os
+from sqlalchemy import text
 
 def execute_query(connection, query, params=None):
-    """Execute SQL query with parameters"""
-    cursor = connection.cursor()
-    try:
-        cursor.execute(query, params)
-        connection.commit()
-        return True
-    except Error as e:
-        print(f"Query execution error: {e}")
-        connection.rollback()
-        return False
-    finally:
-        cursor.close()
+    """Execute SQL query with parameters - supports both mysql.connector and SQLAlchemy connections"""
+    # Check if connection is SQLAlchemy connection or mysql.connector connection
+    if hasattr(connection, 'execute'):  # SQLAlchemy connection
+        try:
+            if params:
+                connection.execute(text(query), params)
+            else:
+                connection.execute(text(query))
+            connection.commit()
+            return True
+        except Exception as e:
+            print(f"Query execution error: {e}")
+            connection.rollback()
+            return False
+    else: # mysql.connector connection
+        cursor = connection.cursor()
+        try:
+            cursor.execute(query, params)
+            connection.commit()
+            return True
+        except Error as e:
+            print(f"Query execution error: {e}")
+            connection.rollback()
+            return False
+        finally:
+            cursor.close()
 
 def save_to_csv(dataframe, filepath):
     """Save DataFrame to CSV file"""
