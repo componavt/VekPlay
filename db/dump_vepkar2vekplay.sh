@@ -18,7 +18,7 @@ current_date=$(date +"%Y%m%d")
 dump_file="vekplay-empty.sql"
 compressed_file="$dump_file.zst"
 
-# Execute mysqldump with --no-data flag to dump only the structure of the 'lemmas' table
+# Execute mysqldump with --no-data flag to dump only the structure of the 'lemmas' and 'langs' tables
 sudo mysqldump -u "$user_name" -p"$password" \
     --default-character-set=utf8mb4 \
     --single-transaction \
@@ -27,7 +27,7 @@ sudo mysqldump -u "$user_name" -p"$password" \
     --skip-add-drop-table \
     --skip-lock-tables \
     --skip-disable-keys \
-    vepkar lemmas > "$dump_file"
+    vepkar lemmas langs > "$dump_file"
 
 echo "Database structure dump for 'lemmas' completed and compressed."
 

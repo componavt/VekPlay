@@ -18,13 +18,15 @@ def export_top_lemmas():
             f"mysql+pymysql://{VEPKAR_DB['user']}:{VEPKAR_DB['password']}@{VEPKAR_DB['host']}/{VEPKAR_DB['database']}"
         )
         
+        print("Starting export of langs from VepKar to VekPlay...")
         # Export all langs from VepKar to VekPlay
         langs_query = "SELECT id, name_en, name_ru, short_ru, code, sequence_number FROM langs"
         langs_df = pd.read_sql(langs_query, vepkar_engine)
         
         # Connect to VekPlay and insert langs
         vekplay_conn = mysql.connector.connect(**VEKPLAY_DB)
-        for _, row in langs_df.iterrows():
+        print("Inserting langs into VekPlay database...")
+        for index, row in langs_df.iterrows():
             insert_lang_query = """
             INSERT INTO langs (id, name_en, name_ru, short_ru, code, sequence_number)
             VALUES (%s, %s, %s, %s, %s, %s)
@@ -37,10 +39,13 @@ def export_top_lemmas():
             """
             params = (row['id'], row['name_en'], row['name_ru'], row['short_ru'], row['code'], row['sequence_number'])
             execute_query(vekplay_conn, insert_lang_query, params)
+            print(".", end="", flush=True)  # Print progress indicator
+        print(" Done!")  # New line after progress indicator
         
         # Save langs to JSON file
+        print("Creating langs JSON file...")
         langs_json = []
-        for _, row in langs_df.iterrows():
+        for index, row in langs_df.iterrows():
             lang_data = {
                 'id': int(row['id']),
                 'name_en': row['name_en'],
@@ -52,6 +57,7 @@ def export_top_lemmas():
             langs_json.append(lang_data)
         
         save_to_json(langs_json, "share/data/langs.json")
+        print("Langs export completed.")
         
         # Query top lemmas with examples, audio and illustrations
         query = """
@@ -74,6 +80,7 @@ def export_top_lemmas():
         LIMIT 7;
         """
         
+        print("Querying top lemmas with examples, audio and illustrations...")
         # Create SQLAlchemy engine for Vepkar database
         vepkar_engine = create_engine(
             f"mysql+pymysql://{VEPKAR_DB['user']}:{VEPKAR_DB['password']}@{VEPKAR_DB['host']}/{VEPKAR_DB['database']}"
@@ -81,13 +88,16 @@ def export_top_lemmas():
         
         # Execute query
         top_lemmas = pd.read_sql(query, vepkar_engine)
+        print(f"Retrieved {len(top_lemmas)} top lemmas.")
         vepkar_conn.close()
         vepkar_conn = None
         
         # Save to CSV
+        print("Saving lemmas to CSV file...")
         save_to_csv(top_lemmas, "share/data/lemmas.csv")
         
         # Save to JSON file for React app
+        print("Creating lemmas JSON file...")
         lemmas_json = []
         for _, row in top_lemmas.iterrows():
             lemma_data = {
@@ -101,10 +111,12 @@ def export_top_lemmas():
             lemmas_json.append(lemma_data)
         
         save_to_json(lemmas_json, "share/data/lemmas.json")
+        print("Lemmas export to JSON completed.")
         
+        print("Inserting lemmas into VekPlay database...")
         # Connect to VekPlay and write only basic lemma data (without counts)
         vekplay_conn = mysql.connector.connect(**VEKPLAY_DB)
-        for _, row in top_lemmas.iterrows():
+        for index, row in top_lemmas.iterrows():
             insert_query = """
             INSERT INTO lemmas (id, lemma, lang_id, lemma_for_search)
             VALUES (%s, %s, %s, %s)
@@ -116,6 +128,8 @@ def export_top_lemmas():
             # Use the lemma itself as lemma_for_search if no other logic is defined
             params = (row['id'], row['lemma'], row['lang_id'], row['lemma'])
             execute_query(vekplay_conn, insert_query, params)
+            print(".", end="", flush=True)  # Print progress indicator
+        print(" Done!")  # New line after progress indicator
         
         print(f"Export completed successfully. Processed {len(top_lemmas)} lemmas.")
         
